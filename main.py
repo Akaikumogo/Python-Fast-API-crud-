@@ -43,7 +43,9 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
         return {"message": "User deleted successfully"}
     else:
         raise HTTPException(status_code=404, detail="User not found")
-
+@app.get("/")
+async def default():
+    return {"message": "Hello wercel"}
 @app.put("/Users/{user_id}")
 async def edit_user(user_id: int, user_update_data: UserUpdateSchema, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
