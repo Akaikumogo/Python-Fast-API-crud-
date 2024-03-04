@@ -1,4 +1,5 @@
 from fastapi import Depends, FastAPI, HTTPException
+import uvicorn
 
 from database import engine,SessionLocal
 from models import Base, User
@@ -53,3 +54,6 @@ async def edit_user(user_id: int, user_update_data: UserUpdateSchema, db: Sessio
     user.nickname = user_update_data.nickname
     db.commit()
     return {"message": "User updated successfully"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
